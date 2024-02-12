@@ -1,0 +1,1 @@
+helm get manifest sample -n test

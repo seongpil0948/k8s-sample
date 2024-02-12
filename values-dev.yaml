@@ -1,0 +1,5 @@
+# {{- include "path/to/parent-values.yaml" -}}
+meta:
+  env: dev
+favorite:
+  drink: beer

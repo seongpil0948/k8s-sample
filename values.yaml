@@ -1,0 +1,41 @@
+favorite:
+  drink: coffee
+  food: cake
+pizzaToppings:
+  - mushrooms
+  - cheese
+  - peppers
+  - onions
+labels:
+  configmap:
+    app: sample-configmap
+    secret: finger-prince
+
+baseName:
+  gateway: gateway
+
+tlsSecrets:
+  - name: tls-secret
+    fullname: full-tls-secret
+    secretName: tls-secret-name
+    key: tls.crt
+    cert: |
+      -----BEGIN CERTIFICATE-----
+      MIIDETCCAfmgAwIBAgIIfNPFEcucfqkwDQYJKoZIhvcNAQELBQAwGTEXMBUGA1UE
+      AxMOZnJvbnQtcHJveHktY2EwHhcNMjMxMjAzMTUyMzIzWhcNMzMxMTMwMTUyODIz
+      WjAZMRcwFQYDVQQDEw5mcm9udC1wcm94eS1jYTCCASIwDQYJKoZIhvcNAQEBBQAD
+      ggEPADCCAQoCggEBAK3DQo+l1i3Vxk0Mg07fkuTqLGAIGoa4EnNX1zuXw/MjhlhK
+      5ueHeUTbqnhyhv4JzKwGaMTub/kReQRFGN6HVjG5EkHub83ahGQpVMSlyVHJcc3C
+      LNpMWlh3bMO9fSU1GbWqBIQv3X7xMpTYAfvPw20HsDyQS5wphQ84F6lNRAbftvld
+      wdWy6d1hAEU8w2KBr2MwSnme+q7NT4b4jJRWJDbCVLEc49OWCfM+O95WCjkpAmNS
+      9dN4KzXdVgTKXN5IdNFQRyuzZjYI419gKxacmKGgQCljV4OzGYAzJpGy0djKcDFE
+      AjBh5rPzESrDHCNu+K5aQP8jQk48R6CmgqMUWZ0CAwEAAaNdMFswDgYDVR0PAQH/
+      BAQDAgKkMA8GA1UdEwEB/wQFMAMBAf8wHQYDVR0OBBYEFOe1pSmSgQdI5o4czHMw
+      3Iq+InjSMBkGA1UdEQQSMBCCDmZyb250LXByb3h5LWNhMA0GCSqGSIb3DQEBCwUA
+      A4IBAQB9OrZMwekbaXVIdBDAP4/GXK9PGOYHGaoKfsN5lJTb6jhdzE+zi9dcnCDc
+      I2O7UQPYBH6wtUnlpAEN4yRqW4k0+IDb0wS0ccHFyAQt/5C2DAR2wEADskPG1i5/
+      /X4ic3A6CTmjFj3zQ49CccrySHZMp0oeG6Li8uO+vyzZRFfNqtgINGCQ0JPjl9W1
+      RGOWkvLJLcTmjmoTHs03a8btBZ9mMwsQK+1ntdeAIOPs2TZlz/OFaKS7j6JYokio
+      1syBf5ecl7fMd1ZgI52FdPOCW7uBylZUbn3alOpBmMm6TSDlGf9PcoKULduadYrD
+      upb5A1pNiUGD+hOg1kMvvB7MGFLz
+      -----END CERTIFICATE-----
