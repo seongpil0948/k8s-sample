@@ -2,7 +2,7 @@
 # https://metallb.universe.tf/installation/
 NS=metallb-system
 kubectl apply --wait -n $NS -f https://raw.githubusercontent.com/metallb/metallb/v0.14.3/config/manifests/metallb-native.yaml 
-kubectl apply -f /home/abacus/sample/templates/_metallb-config.yaml -n $NS
+kubectl apply -f templates/_metallb-config.yaml -n $NS
 
 # helm uninstall metallb --namespace metallb-system 
 # helm repo add bitnami https://charts.bitnami.com/bitnami

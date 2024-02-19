@@ -16,6 +16,8 @@ helm install \
   --create-namespace \
   --dry-run=$DRY_RUN_TARGET \
   --debug \
-  -f /home/abacus/sample/values-dev.yaml \
+  --values values-traefik.yaml \
+  --values values.yaml \
+  --values values-dev.yaml \
   sample \
-  /home/abacus/sample 
+  ./

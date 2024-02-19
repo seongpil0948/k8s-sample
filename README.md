@@ -22,7 +22,12 @@ NEW_NS=sample
 kubectl patch serviceaccount default -p '{"imagePullSecrets": [{"name": "docker-abacus"}]}' -n $NEW_NS
 ```
 
-
+## Traefik
+dashboard
+```bash
+kubectl port-forward $(kubectl get pods --selector "app.kubernetes.io/name=traefik" -n dev --output=name) 9000:9000 -n dev
+```
+access to [http://localhost:9000/dashboard/#/http/routers](http://localhost:9000/dashboard/#/http/routers)
 
 ## Reference
 - https://gateway-api.sigs.k8s.io/guides/simple-gateway/

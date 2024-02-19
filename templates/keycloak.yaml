@@ -1,0 +1,112 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: keycloak
+  labels:
+    app: keycloak
+spec:
+  ports:
+  - name: http
+    port: 8080
+    targetPort: 8080
+  selector:
+    app: keycloak
+  type: ClusterIP
+
+---
+
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: keycloak
+  labels:
+    app: keycloak
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: keycloak
+  template:
+    metadata:
+      labels:
+        app: keycloak
+    spec:
+      containers:
+      - name: keycloak
+        image: quay.io/keycloak/keycloak:23.0.6
+        args: [
+          "start-dev" ,
+        ]
+          # "--http-enabled --db-url=jdbc:mysql://10.99.252.172:3306/keycloak --db-password=abacus10! --http-relative-path=/auth",
+          # "--optimized"
+        # "--cache-stack=kubernetes",
+        env:
+        # - name: KEYCLOAK_DB_HOST
+        #   value: "http://10.99.252.172"
+        # - name: KC_DB
+        #   value: "http://10.99.252.172"
+        - name: KC_DB_PASSWORD
+          value: abacus10!  
+        - name: KEYCLOAK_ADMIN
+          value: "admin"
+        - name: KEYCLOAK_ADMIN_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: mysql-secret
+              key: password            
+          # value: "admin"
+        - name: KEYCLOAK_LOG_LEVEL
+          value: "debug"
+        - name: KC_DB
+          value: "mysql"
+        - name: KC_DB_URL_HOST
+          # value: "common-mysql.{{ .Release.Namespace }}.svc.cluster.local"
+          value: "10.99.252.172"  
+        # - name: KC_DB_URL
+        #  # value: "common-mysql.{{ .Release.Namespace }}.svc.cluster.local"
+        #   value: "10.99.252.172"
+        - name: KC_DB_URL_PORT
+          value: "3306"
+        - name: KC_DB_URL_DATABASE
+          value: "keycloak"
+        - name: KC_DB_USERNAME
+          value: "root"
+      
+        # - name: KC_PROXY
+        #   value: "edge"
+        # - name: jgroups.dns.query
+        #   value: "keycloak"
+        # - name: PROXY_ADDRESS_FORWARDING
+        #   value: "true"
+        - name: KC_HEALTH_ENABLED
+          value: "true"
+        # - name: KC_METRICS_ENABLED
+        #   value: "true"
+        # - name: KC_HTTP_ENABLED
+        #   value: "true"
+        - name: KC_HTTP_RELATIVE_PATH
+          value: "/auth"
+        # - name: KC_HOSTNAME
+        #   value: "localhost"
+        # - name: KC_HOSTNAME_URL
+        #   value: "https://domain-name.com/keycloak/auth/"
+        # - name: KC_HOSTNAME_ADMIN_URL
+        #   value: "https://domain-name.com/keycloak/auth/"
+
+
+
+
+        ports:
+        - name: http
+          containerPort: 8080
+        # - name: jgroups
+        #   containerPort: 7600
+
+        resources:
+          limits:
+            cpu: 500m
+            memory: 500Mi
+          requests:
+            cpu: 250m
+            memory: 100Mi        

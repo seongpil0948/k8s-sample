@@ -1,3 +1,4 @@
+
 favorite:
   drink: coffee
   food: cake
@@ -6,6 +7,7 @@ pizzaToppings:
   - cheese
   - peppers
   - onions
+
 labels:
   configmap:
     app: sample-configmap
@@ -39,3 +41,4 @@ tlsSecrets:
       1syBf5ecl7fMd1ZgI52FdPOCW7uBylZUbn3alOpBmMm6TSDlGf9PcoKULduadYrD
       upb5A1pNiUGD+hOg1kMvvB7MGFLz
       -----END CERTIFICATE-----
+

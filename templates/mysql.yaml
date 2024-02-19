@@ -1,0 +1,92 @@
+apiVersion: v1
+data:
+  password: YWJhY3VzMTAh
+kind: Secret
+metadata:
+  creationTimestamp: null
+  name: mysql-secret
+---
+# --from-literal=password=abacus10!
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: mysql-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 5Gi
+  storageClassName: nfs-shared-client
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: common-mysql
+  labels:
+    app: common-mysql
+spec:
+  selector:
+    matchLabels:
+      app: mysql
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: mysql
+    spec:
+      containers:
+        - image: mysql:5.6
+          name: mysql
+          resources:
+            requests:
+              memory: "512Mi"
+              cpu: "512m"
+            limits:
+              memory: "1Gi"
+              cpu: "1024m"
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mysql-secret
+                  key: password
+            # - name: MYSQL_PASSWORD
+            #   valueFrom:
+            #     secretKeyRef:
+            #       name: mysql-secret
+            #       key: password
+            # - name: MYSQL_DATABASE # 구성할 database명
+            #   value: common
+            # - name: MYSQL_USER # database에 권한이 있는 user
+            #   value: admin
+            # - name: MYSQL_ALLOW_EMPTY_PASSWORD
+            #   value: "false"
+          ports:
+            - containerPort: 3306
+              name: mysql
+          volumeMounts:
+            - name: mysql-persistent-storage
+              mountPath: /var/lib/mysql
+      volumes:
+        - name: mysql-persistent-storage
+          persistentVolumeClaim:
+            claimName: mysql-pvc
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: common-mysql
+  name: common-mysql
+spec:
+  ports:
+    - port: 3306
+      protocol: TCP
+      targetPort: 3306
+  selector:
+    app: mysql
+  type: ClusterIP

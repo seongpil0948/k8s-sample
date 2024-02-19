@@ -1,7 +1,11 @@
 kubectl delete namespace oidc
 kubectl create namespace oidc
 # helm install keycloak bitnami/keycloak --version=18.2.1  --namespace oidc --values /home/abacus/infra/values-keycloak.yaml
-helm upgrade keycloak bitnami/keycloak --version=18.2.1  --namespace oidc --values /home/abacus/infra/values-keycloak.yaml
+helm upgrade keycloak bitnami/keycloak \
+  --install  \
+  --version=18.2.1  \
+  --namespace oidc  \
+  --values /home/admin/k8s-sample/values-dev.yaml
 # ** Please be patient while the chart is being deployed **
 
 # Keycloak can be accessed through the following DNS name from within your cluster:

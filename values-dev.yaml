@@ -3,3 +3,48 @@ meta:
   env: dev
 favorite:
   drink: beer
+global:
+  storageClass: nfs-shared-client
+  ingressClassName: sample-dev-traefik
+
+# >>> keycloak >>>
+# # Copyright VMware, Inc.
+# # SPDX-License-Identifier: APACHE-2.0
+auth:
+  ## @param auth.adminUser Keycloak administrator user
+  ##
+  adminUser: admin
+  ## @param auth.adminPassword Keycloak administrator password for the new user
+  ##
+  adminPassword: "abacus10!"
+resources:
+  limits:
+    cpu: 500m
+    memory: 1Gi
+  requests:
+    cpu: 250m
+    memory: 500Mi
+service:
+  #   ## @param service.type Kubernetes service type
+  #   ##
+  type: ClusterIP
+  # type: NodePort
+  #   ## @param service.http.enabled Enable http port on service
+  #   ##
+  http:
+    enabled: true
+  #   ## @param service.ports.http Keycloak service HTTP port
+  #   ## @param service.ports.https Keycloak service HTTPS port
+  #   ##
+  # ports:
+  #   http: 30852
+  #   https: 443
+postgresql:
+  enabled: true
+  auth:
+    postgresPassword: "abacus10!"
+    username: keycloak
+    password: "abacus10!"
+    database: keycloak
+  # architecture: replication
+# <<< keycloak <<<
